@@ -1,1 +1,185 @@
+# Python bytecode / cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# Installer / pip
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Virtual environments / env files
 .env
+.env.*
+venv/
+venv*/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Pyenv / poetry / pipenv
+.python-version
+.poetry/
+.pip-wheel-metadata/
+
+# Tests / coverage
+.htmlcov/
+htmlcov/
+.coverage
+.coverage.*
+.cache
+.pytest_cache/
+coverage.xml
+
+# Type checkers / caches
+.mypy_cache/
+.pytype/
+cython_debug/
+
+# IDEs / editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs / runtime files
+*.log
+*.sqlite3
+*.db
+*.sql
+instance/
+celerybeat-schedule
+
+# Keys / secrets
+*.pem
+*.key
+*.cer
+*.crt
+secrets.*
+credentials.*
+
+# Model / ML caches and checkpoints
+.cache/
+torch_cache/
+__pytorch_cache__/
+whisper_cache/
+*.pt
+*.pth
+*.ckpt
+
+# Build artifacts / installers
+*.egg
+*.whl
+
+# Misc
+*.swp
+*.lock
+*.tmp
+node_modules/
+```# Python bytecode / cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# Installer / pip
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Virtual environments / env files
+.env
+.env.*
+venv/
+venv*/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Pyenv / poetry / pipenv
+.python-version
+.poetry/
+.pip-wheel-metadata/
+
+# Tests / coverage
+.htmlcov/
+htmlcov/
+.coverage
+.coverage.*
+.cache
+.pytest_cache/
+coverage.xml
+
+# Type checkers / caches
+.mypy_cache/
+.pytype/
+cython_debug/
+
+# IDEs / editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs / runtime files
+*.log
+*.sqlite3
+*.db
+*.sql
+instance/
+celerybeat-schedule
+
+# Keys / secrets
+*.pem
+*.key
+*.cer
+*.crt
+secrets.*
+credentials.*
+
+# Model / ML caches and checkpoints
+.cache/
+torch_cache/
+__pytorch_cache__/
+whisper_cache/
+*.pt
+*.pth
+*.ckpt
+
+# Build artifacts / installers
+*.egg
+*.whl
+
+# Misc
+*.swp
+*.lock
+*.tmp
