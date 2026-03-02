@@ -17,9 +17,13 @@ async def transcribe(file: UploadFile = File(...)):
 
     ## Convertir el audio GSM a WAV utilizando la función del helper
     wav_bytes = audio_helpers.convert_gsm_to_wav(gsm_bytes)
+    
+    ## Evaluar el audio convertido para verificar su calidad
+    if not audio_helpers.evaluar_audio(wav_bytes):
+        return {"error": "Invalid audio file after conversion"}
 
     ## Transcribir el audio utilizando la función de la clase WhisperService
-    text = await WhisperService.transcribe_audio(wav_bytes)
+    text = whisper_service.transcribe_audio(wav_bytes)
 
     return {
         "filename": file.filename,
