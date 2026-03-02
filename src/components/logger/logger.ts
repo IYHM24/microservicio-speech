@@ -1,6 +1,7 @@
 import logger from "./logger.config.js";
 
-class Logger {
+
+class LoggerClass {
     
     /**
      * Logger de tipo info
@@ -49,4 +50,4 @@ class Logger {
 
 }
 
-export default new Logger();
+export default new LoggerClass();

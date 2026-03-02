@@ -1,8 +1,11 @@
 import dotenv from 'dotenv';
+import app from './express.js';
+import LoggerClass from '../components/logger/logger.js'
+
 dotenv.config();
 
-// Configuración de Winston
-export const LOG_LEVEL = process.env.LOG_LEVEL || 'info';
+//Logger
+export const logger = LoggerClass;
 
-/// Configuración de la conexion 
-export const PORT = process.env.PORT || 3000;
+//Express - Conexion de la app 
+export const appExpress = app;

@@ -1,5 +1,9 @@
-import { LOG_LEVEL } from '../../config/constantes.js';
 import { createLogger, format, transports } from 'winston';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const LOG_LEVEL = process.env.LOG_LEVEL || 'info';
 
 // Formato personalizado con colores y timestamp
 const customFormat = format.printf(({ level, message, timestamp, ...metadata }) => {

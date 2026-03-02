@@ -1,13 +1,12 @@
 import express from "express";
-import { PORT } from "./constantes.js";
-import logger from "../components/logger/logger.js";
+import {logger} from "./constantes.js";
+import dotenv from 'dotenv';
 
-const app = express();
+dotenv.config();
+const PORT = process.env.PORT || 3000;
+
+const app = express();  
 app.use(express.json());
-
-app.get("/", (req, res) => {
-  res.json({ message: "API funcionando 🚀" });
-});
 
 app.listen(PORT, () => {
   logger.info(`Servidor escuchando en el puerto ${PORT}`);
