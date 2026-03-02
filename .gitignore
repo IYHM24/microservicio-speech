@@ -1,0 +1,41 @@
+## Node
+node_modules/
+
+## Build output
+dist/
+build/
+
+## dotenv
+.env
+.env.*.local
+
+## Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+logs/
+*.log
+
+## TypeScript
+*.tsbuildinfo
+
+## VSCode
+.vscode/
+
+## OS files
+.DS_Store
+Thumbs.db
+
+## Coverage
+coverage/
+
+## Temp
+tmp/
+temp/
+
+## IDEs
+.idea/
+
+## Optional examples
+.env.example

@@ -1,0 +1,1 @@
+import app from "./src/config/express.js";
