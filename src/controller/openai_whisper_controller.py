@@ -1,10 +1,14 @@
 from fastapi import APIRouter, UploadFile, File
+from pydantic import BaseModel
+from src.services.openai_service import OpenAiService
 from src.services.whisper_service import WhisperService
 from src.helpers.audio_helpers import audio_helpers
+from src.Models.AskRequestDto import AskRequest
 
 ## Instancia del router para las rutas relacionadas con Whisper
 router = APIRouter(prefix="/whisper", tags=["Whisper"])
 whisper_service = WhisperService()  # Instancia de la clase WhisperService
+openai_service = OpenAiService()  # Instancia de la clase OpenAiService
 
 ## Ruta para transcribir archivos GSM a texto utilizando Whisper
 @router.post("/transcribe")
@@ -29,3 +33,10 @@ async def transcribe(file: UploadFile = File(...)):
         "filename": file.filename,
         "text": text
     }
+
+## Ruta para realizar una pregunta al modelo de OpenAI
+## Recomendado solo para pruebas, no exponer en producción sin autenticación adecuada
+@router.post("/ask")
+async def ask(request: AskRequest):
+    response = openai_service.ask(request.user_input)
+    return {"response": response.content}
