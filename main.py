@@ -3,8 +3,13 @@ from fastapi import FastAPI
 from src.controller.openai_whisper_controller import router as whisper_router
 from src.controller.health_controller import router as health_router
 from src.controller.foundry_controller import router as foundry_router
+from src.core.logger import get_logger
+
 import os
 import uvicorn
+
+# Logger
+logger = get_logger("main")
 
 ### Crear la instancia de la aplicación FastAPI
 app = FastAPI(
@@ -21,4 +26,7 @@ app.include_router(foundry_router)
 ## Principal punto de entrada para ejecutar la aplicación
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 3000))
+    # Limpiar la consola antes de iniciar la aplicación
+    os.system("cls" if os.name == "nt" else "clear")
+    logger.info(f"Starting Speech Service API on port {port}")
     uvicorn.run(app, host="0.0.0.0", port=port)

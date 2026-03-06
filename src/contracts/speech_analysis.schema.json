@@ -1,5 +1,6 @@
 {
   "name": "speech_analysis",
+  "strict": true,
   "schema": {
     "type": "object",
     "properties": {
@@ -8,24 +9,21 @@
         "description": "intento principal del cliente, como 'consulta de saldo', 'reclamo', 'solicitud de información', etc."
       },
       "account_id": {
-        "type": "string",
+        "anyOf": [{ "type": "string" }, { "type": "null" }],
         "description": "Número de cuenta del cliente si se menciona"
       },
       "product": {
-        "type": "string",
+        "anyOf": [{ "type": "string" }, { "type": "null" }],
         "description": "Producto al que se refiere la conversación"
       },
       "sentiment": {
-        "type": "string",
-        "enum": ["positivo", "neutral", "negativo"]
-      },
-      "urgency": {
-        "type": "integer",
-        "description": "Nivel de urgencia percibido en la conversación, de 1 a 5",
-        "minimum": 1,
-        "maximum": 5
+        "anyOf": [
+          { "type": "string", "enum": ["positivo", "neutral", "negativo"] },
+          { "type": "null" }
+        ]
       }
     },
-    "required": ["intent"]
+    "required": ["intent", "account_id", "product", "sentiment"],
+    "additionalProperties": false
   }
 }
