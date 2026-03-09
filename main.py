@@ -32,11 +32,11 @@ if __name__ == "__main__":
     # Limpiar la consola antes de iniciar la aplicación
     os.system("cls" if os.name == "nt" else "clear")
 
-    # Iniciar el servidor gRPC
+    # Iniciar el servidor gRPC - Ideal para ambiente de microservicios (Pruebas y Producción)
     logger.info("Starting Speech Service gRPC server on port 50051")
     initGrpc()
 
-    # Iniciar el servidor API
-    logger.info(f"Starting Speech Service API on port {port}")
-    uvicorn.run(app, host="0.0.0.0", port=port)
+    # Iniciar el servidor API - Ideal conexion directa Frontend (Solo pruebas)
+    #logger.info(f"Starting Speech Service API on port {port}")
+    #uvicorn.run(app, host="0.0.0.0", port=port)
 
