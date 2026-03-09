@@ -28,14 +28,15 @@ app.include_router(foundry_router)
 if __name__ == "__main__":
 
     port = int(os.getenv("PORT", 3000))
-    
+
     # Limpiar la consola antes de iniciar la aplicación
     os.system("cls" if os.name == "nt" else "clear")
+
+    # Iniciar el servidor gRPC
+    logger.info("Starting Speech Service gRPC server on port 50051")
+    initGrpc()
 
     # Iniciar el servidor API
     logger.info(f"Starting Speech Service API on port {port}")
     uvicorn.run(app, host="0.0.0.0", port=port)
 
-    # Iniciar el servidor gRPC
-    logger.info("Starting Speech Service gRPC server on port 50051")
-    initGrpc()

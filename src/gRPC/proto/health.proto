@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+package speech;
+
+service HealthService {
+  rpc Health (google.protobuf.Empty) returns (HealthResponse);
+}
+
+message HealthResponse {
+    string status = 1;
+}
