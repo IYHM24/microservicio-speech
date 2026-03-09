@@ -23,6 +23,19 @@ async def transcribe(file: UploadFile = File(...)):
     ## Transcribir el audio 
     logger.info(f"Transcribiendo el archivo de audio: {file.filename}")
     result = await bussiness.transcribe_audio(file)
+    return result
+
+""" Ruta para analizar un archivo de audio"""
+@router.post("/analyse")
+async def analyse(file: UploadFile = File(...)):
+    logger.info(f"Nueva solicitud de análisis para el archivo: {file.filename}")
+    ## Validar que el archivo sea del tipo GSM
+    if not file.filename.endswith(".gsm"):
+        logger.warning(f"Archivo no permitido: {file.filename}")
+        return {"error": "Only .gsm files allowed"} 
+    ## Transcribir el audio 
+    logger.info(f"Transcribiendo el archivo de audio: {file.filename}")
+    result = await bussiness.transcribe_audio(file)
     ## Analizar el resultado de la transcripción (Speech analysis)
     logger.info(f"Analizando la transcripción del archivo: {file.filename}")
     result = bussiness.analyse_speech(result)
