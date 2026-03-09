@@ -4,9 +4,10 @@
   "schema": {
     "type": "object",
     "properties": {
-      "intent": {
+      "contexto": {
         "type": "string",
-        "description": "intento principal del cliente, como 'consulta de saldo', 'reclamo', 'solicitud de información', etc."
+        "minLength": 10,
+        "description": "Resumen corto de la llamada"
       },
       "account_id": {
         "anyOf": [{ "type": "string" }, { "type": "null" }],
@@ -18,12 +19,19 @@
       },
       "sentiment": {
         "anyOf": [
-          { "type": "string", "enum": ["positivo", "neutral", "negativo"] },
+          { "type": "string", "enum": ["interesado", "neutral", "desinteresado"] },
+          { "type": "null" }
+        ]
+      },
+      "Titular": {
+       "description": "Indicar si la persona que habla es el titular de la cuenta, no se sabe o no es el titular - No dejar en blanco o null",
+       "anyOf": [
+          { "type": "string", "enum": ["titular", "no_titular", "no_identificado"] },
           { "type": "null" }
         ]
       }
     },
-    "required": ["intent", "account_id", "product", "sentiment"],
+    "required": ["contexto", "account_id", "product", "sentiment"],
     "additionalProperties": false
   }
 }
