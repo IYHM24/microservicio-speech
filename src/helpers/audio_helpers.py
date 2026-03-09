@@ -1,15 +1,28 @@
 import subprocess
 import os
+from fastapi import UploadFile
 import soundfile as sf
 import io
 from src.core.logger import get_logger
 
+""" Clase para compatibilizar con UploadFile de FastApi """
+class FastAPILikeUploadFile:
+    def __init__(self, filename: str, data: bytes):
+        self.filename = filename
+        self._data = data
+    async def read(self) -> bytes:
+        return self._data
+    async def close(self):
+        self._data = None
 
-
+""" 
+    Clase con funciones helper para el procesamiento de audio, incluyendo evaluación de calidad,
+    conversión de formatos y manejo de chunks de audio.
+ """
 class audio_helpers:
     
     logger = get_logger(__name__)
-
+    
     """ Función para evaluar la calidad del audio antes de procesarlo, verificando que se pueda leer correctamente y obteniendo métricas básicas. """
     def evaluar_audio(self, wav_bytes: bytes) -> bool:
         try:
@@ -45,3 +58,16 @@ class audio_helpers:
         wav_bytes, _ = process.communicate(input=gsm_bytes)
         self.logger.info(f"Archivo GSM convertido a WAV, tamaño: {len(wav_bytes)} bytes")
         return wav_bytes
+
+    """ Convertir los bytes recibidos de gRPC en UploadFile para ser procesados por las funciones de FastAPI """
+    def chunks_to_audio(self, request_iterator: list) -> UploadFile:
+        """ Función para convertir una lista de chunks de audio en un solo archivo de audio en bytes. """
+        parts = []
+        filename = None
+        for i, chunk_msg in enumerate(request_iterator):
+            if i == 0 and getattr(chunk_msg, "filename", None):
+                filename = chunk_msg.filename
+            parts.append(chunk_msg.chunk)  # chunk_msg.chunk es bytes
+        audio_bytes = b"".join(parts)
+        self.logger.info(f"Chunks combinados en un solo archivo de audio, tamaño total: {len(audio_bytes)} bytes")
+        return FastAPILikeUploadFile(filename or "uploaded.gsm", audio_bytes)

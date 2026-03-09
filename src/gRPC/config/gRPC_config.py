@@ -1,5 +1,5 @@
 from concurrent import futures
-from src.gRPC.stubs import speech_Service_pb2_grpc
+from src.gRPC.stubs import speech_service_pb2_grpc
 from src.gRPC.controllers.openai_whisper_controller import SpeechService
 from src.gRPC.controllers.health_controller import HealthService
 from src.gRPC.stubs import health_pb2_grpc
@@ -15,7 +15,7 @@ def initGrpc():
     
     # Registrar el servicio en el servidor gRPC
     health_pb2_grpc.add_HealthServiceServicer_to_server(HealthService(), server)
-    speech_Service_pb2_grpc.add_SpeechServiceServicer_to_server(SpeechService(), server)
+    speech_service_pb2_grpc.add_SpeechServiceServicer_to_server(SpeechService(), server)
     
     # Iniciar el servidor gRPC en el puerto especificado
     server.add_insecure_port('[::]:'+str(port))

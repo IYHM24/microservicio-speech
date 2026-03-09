@@ -3,13 +3,14 @@ syntax = "proto3";
 package speech;
 
 service SpeechService {
-  rpc Transcribe (TranscribeRequest) returns (TranscribeResponse);
-  rpc Analyse (AnalyseRequest) returns (AnalyseResponse);
+  rpc Transcribe (stream TranscribeRequest) returns (TranscribeResponse);
+  rpc Analyse (stream AnalyseRequest) returns (AnalyseResponse);
   rpc Ask (AskRequest) returns (AskResponse);
 }
 
 message TranscribeRequest {
     bytes audio = 1;
+    string filename = 2;
 }
 
 message TranscribeResponse {
@@ -18,6 +19,7 @@ message TranscribeResponse {
 
 message AnalyseRequest {
     bytes audio = 1;
+    string filename = 2;
 }
 
 message AnalyseResponse {

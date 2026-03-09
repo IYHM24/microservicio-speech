@@ -3,7 +3,7 @@
 import grpc
 import warnings
 
-from . import speech_Service_pb2 as speech__Service__pb2
+from . import speech_service_pb2 as speech__service__pb2
 
 GRPC_GENERATED_VERSION = '1.78.0'
 GRPC_VERSION = grpc.__version__
@@ -18,7 +18,7 @@ except ImportError:
 if _version_not_supported:
     raise RuntimeError(
         f'The grpc package installed is at version {GRPC_VERSION},'
-        + ' but the generated code in speech_Service_pb2_grpc.py depends on'
+        + ' but the generated code in speech_service_pb2_grpc.py depends on'
         + f' grpcio>={GRPC_GENERATED_VERSION}.'
         + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
         + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
@@ -34,33 +34,33 @@ class SpeechServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.Transcribe = channel.unary_unary(
+        self.Transcribe = channel.stream_unary(
                 '/speech.SpeechService/Transcribe',
-                request_serializer=speech__Service__pb2.TranscribeRequest.SerializeToString,
-                response_deserializer=speech__Service__pb2.TranscribeResponse.FromString,
+                request_serializer=speech__service__pb2.TranscribeRequest.SerializeToString,
+                response_deserializer=speech__service__pb2.TranscribeResponse.FromString,
                 _registered_method=True)
-        self.Analyse = channel.unary_unary(
+        self.Analyse = channel.stream_unary(
                 '/speech.SpeechService/Analyse',
-                request_serializer=speech__Service__pb2.AnalyseRequest.SerializeToString,
-                response_deserializer=speech__Service__pb2.AnalyseResponse.FromString,
+                request_serializer=speech__service__pb2.AnalyseRequest.SerializeToString,
+                response_deserializer=speech__service__pb2.AnalyseResponse.FromString,
                 _registered_method=True)
         self.Ask = channel.unary_unary(
                 '/speech.SpeechService/Ask',
-                request_serializer=speech__Service__pb2.AskRequest.SerializeToString,
-                response_deserializer=speech__Service__pb2.AskResponse.FromString,
+                request_serializer=speech__service__pb2.AskRequest.SerializeToString,
+                response_deserializer=speech__service__pb2.AskResponse.FromString,
                 _registered_method=True)
 
 
 class SpeechServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def Transcribe(self, request, context):
+    def Transcribe(self, request_iterator, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def Analyse(self, request, context):
+    def Analyse(self, request_iterator, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -75,20 +75,20 @@ class SpeechServiceServicer(object):
 
 def add_SpeechServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'Transcribe': grpc.unary_unary_rpc_method_handler(
+            'Transcribe': grpc.stream_unary_rpc_method_handler(
                     servicer.Transcribe,
-                    request_deserializer=speech__Service__pb2.TranscribeRequest.FromString,
-                    response_serializer=speech__Service__pb2.TranscribeResponse.SerializeToString,
+                    request_deserializer=speech__service__pb2.TranscribeRequest.FromString,
+                    response_serializer=speech__service__pb2.TranscribeResponse.SerializeToString,
             ),
-            'Analyse': grpc.unary_unary_rpc_method_handler(
+            'Analyse': grpc.stream_unary_rpc_method_handler(
                     servicer.Analyse,
-                    request_deserializer=speech__Service__pb2.AnalyseRequest.FromString,
-                    response_serializer=speech__Service__pb2.AnalyseResponse.SerializeToString,
+                    request_deserializer=speech__service__pb2.AnalyseRequest.FromString,
+                    response_serializer=speech__service__pb2.AnalyseResponse.SerializeToString,
             ),
             'Ask': grpc.unary_unary_rpc_method_handler(
                     servicer.Ask,
-                    request_deserializer=speech__Service__pb2.AskRequest.FromString,
-                    response_serializer=speech__Service__pb2.AskResponse.SerializeToString,
+                    request_deserializer=speech__service__pb2.AskRequest.FromString,
+                    response_serializer=speech__service__pb2.AskResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -102,7 +102,7 @@ class SpeechService(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def Transcribe(request,
+    def Transcribe(request_iterator,
             target,
             options=(),
             channel_credentials=None,
@@ -112,12 +112,12 @@ class SpeechService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
+        return grpc.experimental.stream_unary(
+            request_iterator,
             target,
             '/speech.SpeechService/Transcribe',
-            speech__Service__pb2.TranscribeRequest.SerializeToString,
-            speech__Service__pb2.TranscribeResponse.FromString,
+            speech__service__pb2.TranscribeRequest.SerializeToString,
+            speech__service__pb2.TranscribeResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -129,7 +129,7 @@ class SpeechService(object):
             _registered_method=True)
 
     @staticmethod
-    def Analyse(request,
+    def Analyse(request_iterator,
             target,
             options=(),
             channel_credentials=None,
@@ -139,12 +139,12 @@ class SpeechService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
+        return grpc.experimental.stream_unary(
+            request_iterator,
             target,
             '/speech.SpeechService/Analyse',
-            speech__Service__pb2.AnalyseRequest.SerializeToString,
-            speech__Service__pb2.AnalyseResponse.FromString,
+            speech__service__pb2.AnalyseRequest.SerializeToString,
+            speech__service__pb2.AnalyseResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -170,8 +170,8 @@ class SpeechService(object):
             request,
             target,
             '/speech.SpeechService/Ask',
-            speech__Service__pb2.AskRequest.SerializeToString,
-            speech__Service__pb2.AskResponse.FromString,
+            speech__service__pb2.AskRequest.SerializeToString,
+            speech__service__pb2.AskResponse.FromString,
             options,
             channel_credentials,
             insecure,
