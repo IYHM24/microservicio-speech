@@ -8,8 +8,9 @@ class WhisperService:
     
     """ Constructor de la clase """
     def __init__(self):
+        device = os.getenv("WHISPER_DEVICE", "cpu")
         model_name = os.getenv("WHISPER_MODEL", "base")
-        self.model = whisper.load_model(model_name)
+        self.model = whisper.load_model(model_name, device=device)
         self.chunk_size = int(os.getenv("WHISPER_CHUNK_LENGTH", 30)) * 16000  # Convertir segundos a muestras
 
     """ Función para transcribir un canal de audio en fragmentos utilizando el modelo Whisper """
@@ -37,8 +38,7 @@ class WhisperService:
         #  Convertir WAV bytes a numpy array correctamente
         audio, sample_rate = sf.read(io.BytesIO(audio_file))
         #Separar canales de audio si es estéreo
-        
-        """  """
+        """ Opcion 1: Transcribir ambos canales por separado (si es estéreo) """
         #if len(audio.shape) != 2:
             #raise Exception("El audio no es estéreo")
         #Canala de agente (izquierdo)
@@ -46,14 +46,14 @@ class WhisperService:
         #Canal de cliente (derecho)
         #client_text = self.transcribir_canal(audio[:, 1].astype(np.float32), text_language)
         """  """
-        
+        """ Opcion 2: Convertir a mono si es estéreo """
         if audio.ndim > 1:
             mono = audio.mean(axis=1)
         else:
             mono = audio
         mono = mono.astype("float32")
         mono_text= self.transcribir_canal(mono, text_language)
-
+        """  """
         # Devolver un diccionario con las transcripciones de ambos canales
         return mono_text         
         

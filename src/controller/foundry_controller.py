@@ -14,6 +14,7 @@ router = APIRouter(prefix="/foundry", tags=["Foundry"])
 foundry_service = FoundryService()
 
 
+""" Ruta para invocar el modelo `kimi-k2` con un prompt y opciones, utilizando el servicio de Foundry. """
 @router.post("/invoke")
 async def invoke(req: InvokeRequest):
     try:
@@ -22,7 +23,10 @@ async def invoke(req: InvokeRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-
+""" 
+Ruta para transcribir un archivo de audio usando el modelo `kimi-k2` vía Foundry, aceptando archivos .gsm
+y otros formatos, con evaluación previa de la calidad del audio. 
+"""
 @router.post("/transcribe")
 async def transcribe(file: UploadFile = File(...)):
     # aceptar .gsm y otros formatos; convertir si es gsm
@@ -41,6 +45,11 @@ async def transcribe(file: UploadFile = File(...)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+
+""" 
+Ruta para realizar un health check del servicio de Foundry, intentando usar el SDK si está disponible,
+sino haciendo una llamada REST. Devuelve "ok" si el servicio es saludable, o un error 503 si no lo es. 
+"""
 @router.get("/health")
 async def health_check():
     is_healthy = await foundry_service.health_check()

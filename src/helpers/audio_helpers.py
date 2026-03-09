@@ -10,6 +10,7 @@ class audio_helpers:
     
     logger = get_logger(__name__)
 
+    """ Función para evaluar la calidad del audio antes de procesarlo, verificando que se pueda leer correctamente y obteniendo métricas básicas. """
     def evaluar_audio(self, wav_bytes: bytes) -> bool:
         try:
             ## Evaluar el audio utilizando soundfile para verificar que se pueda leer correctamente

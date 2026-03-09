@@ -3,14 +3,17 @@ from src.config.foundry_config import FoundryConfig
 
 
 class FoundryService(FoundryConfig):
+    
     """Servicio para interactuar con Foundry.
 
     Hereda `FoundryConfig` para reutilizar `self.sdk_client` o `self.client`.
     """
 
+    """ Constructor de la clase """
     def __init__(self):
         super().__init__()
 
+    """ Función genérica para llamar al modelo `kimi-k2` usando SDK o REST según disponibilidad. """
     async def call_model(self, prompt: str, options: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """Llama al modelo `kimi-k2` usando el SDK si está disponible, si no usa REST.
 
@@ -54,6 +57,7 @@ class FoundryService(FoundryConfig):
         except Exception:
             return {"status": resp.status_code, "text": resp.text}
 
+    """ Función para transcribir audio usando el modelo `kimi-k2` vía SDK o REST. """
     async def transcribe(self, audio_bytes: bytes, options: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """Transcribe audio usando REST o SDK si lo soporta.
 
@@ -83,6 +87,7 @@ class FoundryService(FoundryConfig):
         except Exception:
             return {"status": resp.status_code, "text": resp.text}
 
+    """ Función de health check que intenta usar SDK si disponible, sino REST """
     async def health_check(self) -> bool:
         # Preferir SDK health method si disponible
         if getattr(self, "sdk_client", None):

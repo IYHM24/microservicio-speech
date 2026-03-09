@@ -1,5 +1,5 @@
 from pydantic import BaseModel
 
-# Modelo de datos para la solicitud de la ruta /ask
+""" DTO para la solicitud de análisis, que contiene la entrada del usuario. """
 class AskRequestDto(BaseModel):
-    user_input: str
+    user_input: str 

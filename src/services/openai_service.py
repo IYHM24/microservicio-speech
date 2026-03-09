@@ -13,6 +13,7 @@ class OpenAiService( OpenAiConfig ):
     def __init__(self):
         super().__init__()
     
+    """ Construir los mensajes para el análisis de la transcripción utilizando el sistema y el usuario """
     def build_messages(self, system_prompt: str, result: AnalyseSpeechTranscribeDto) -> list:
         user_content =  "Transcripcion: "+result.text + " language: "+ result.language
         return [
@@ -31,6 +32,7 @@ class OpenAiService( OpenAiConfig ):
         )
         return response.choices[0].message
     
+    """ Función para realizar el análisis de la transcripción de audio """
     def speech_analysis(self, AnalyseSpeechTranscribeDto ) -> AnalyseSpeechResultDto:
         ## Cargar el contrato
         schema = Helpers.load_schema("speech_analysis")

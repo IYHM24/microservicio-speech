@@ -11,5 +11,6 @@ Instrucciones:
 - Identifica el producto o servicio mencionado.
 - Determina el sentimiento del cliente (positivo, neutral o negativo).
 - Si algún campo no aparece en la conversación devuelve null.
+- El account_id es el numero de celular del cliente
 
 Responde únicamente con un JSON que cumpla el schema proporcionado.

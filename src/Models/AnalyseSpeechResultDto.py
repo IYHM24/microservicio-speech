@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from typing import Optional
 
+""" DTO para el resultado del análisis de la transcripción de audio, incluyendo intención, cuenta, producto y sentimiento."""
 class AnalyseSpeechResultDto(BaseModel):
     intent: str
     account_id: Optional[str] = None
