@@ -1,9 +1,12 @@
 import subprocess
 import os
-from fastapi import UploadFile
 import soundfile as sf
 import io
+import numpy as np
+
+from fastapi import UploadFile
 from src.core.logger import get_logger
+
 
 """ Clase para compatibilizar con UploadFile de FastApi """
 class FastAPILikeUploadFile:
@@ -71,3 +74,11 @@ class audio_helpers:
         audio_bytes = b"".join(parts)
         self.logger.info(f"Chunks combinados en un solo archivo de audio, tamaño total: {len(audio_bytes)} bytes")
         return FastAPILikeUploadFile(filename or "uploaded.gsm", audio_bytes)
+    
+    """ Función para cortar un array de audio en un rango específico, útil para procesar solo una parte del audio si es necesario. """
+    def slice_array(self, audio_array: np.ndarray, sr: int, start_sec: float, end_sec: float | None) -> np.ndarray:
+        start = max(0, int(start_sec * sr))
+        end = None if end_sec is None else int(end_sec * sr)
+        if end is not None:
+            end = min(len(audio_array), end)
+        return audio_array[start:end]

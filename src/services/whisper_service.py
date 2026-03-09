@@ -4,6 +4,10 @@ import soundfile as sf
 import os
 import numpy as np
 
+from src.core.logger import get_logger
+
+logger = get_logger(__name__)
+
 class WhisperService:
     
     """ Constructor de la clase """
@@ -37,6 +41,16 @@ class WhisperService:
         text_language = os.getenv("WHISPER_TEXT_LANGUAGE", "es")  # Puedes ajustar esto según el idioma de tus audios
         #  Convertir WAV bytes a numpy array correctamente
         audio, sample_rate = sf.read(io.BytesIO(audio_file))
+        # recortar el audio al rango definido por las variables de entorno (en minutos) - si los rangos estan definidos
+        start_min = float(os.getenv("AUDIO_RANGE_START_MIN", -1.0))
+        end_min = float(os.getenv("AUDIO_RANGE_END_MIN", 0))
+        if start_min >= 0 and  end_min > 0:
+            if start_min >= end_min:
+                logger.error("AUDIO_RANGE_START_MIN debe ser menor que AUDIO_RANGE_END_MIN")
+                raise Exception("AUDIO_RANGE_START_MIN debe ser menor que AUDIO_RANGE_END_MIN")
+            start_sample = int(start_min * sample_rate)
+            end_sample = int(end_min * sample_rate)
+            audio = audio[start_sample:end_sample]
         #Separar canales de audio si es estéreo
         """ Opcion 1: Transcribir ambos canales por separado (si es estéreo) """
         #if len(audio.shape) != 2:
